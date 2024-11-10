@@ -1,0 +1,29 @@
+# Bowtie Configuration
+items:
+
+  # Whether to use the item names from EssentialsX or the Bowtie shortened names.
+  # Item comparison:
+  # Bowtie: acaciaboat, acacia_boat
+  # EssentialsX: acaciaboat, acacia_boat, aboat, boata, araft, acraft, acboat
+  #
+  # You may come across issues when using this, such as Essentials potion names not being supported.
+  use-essentials-item-names: true
+
+chat:
+  enabled: true
+  # The format of the chat messages.
+    # <prefix> - The player's prefix.
+    # <name> - The player's name.
+    # <suffix> - The player's suffix.
+    # <message> - The message.
+    # <displayname> - The player's display name.
+  # Default minecraft chat format:
+  # <white><$PREFIX$NAME$SUFFIX> $MESSAGE
+  format: '<white><prefix><displayname><suffix> <white>» <message>'
+
+afk:
+  god-when-afk: true
+
+homes:
+  # Simply tells the player the home coordinates instead of teleporting them.
+  tell-dont-teleport: true

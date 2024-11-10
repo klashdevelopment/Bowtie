@@ -1,0 +1,5 @@
+spawn:
+  # format: x,y,z,yaw,pitch
+  coordinates: [0,100,0,0,0]
+  # format: a world name
+  world: world

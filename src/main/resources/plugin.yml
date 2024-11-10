@@ -1,0 +1,110 @@
+name: Bowtie
+version: '${project.version}'
+main: dev.klash.bowtie.Bowtie
+api-version: '1.21'
+depend: [Caramel]
+softdepend:
+  - Vault
+commands:
+  item:
+    aliases: [i, get]
+  # gmc, gms, gma, gmsp, fly, maxenchant, clear, oyasumi, gamemode, enchant, repair, god, speed, flyspeed, kill, heal, feed, time
+  gmc:
+  gms:
+  gma:
+  gmsp:
+  fly:
+  maxenchant:
+  clear:
+  gamemode:
+    aliases: ['gm']
+  enchant:
+  repair:
+  god:
+  speed:
+  flyspeed:
+  kill:
+  heal:
+  feed:
+  time:
+  rename:
+  clearname:
+  lore:
+  repairall:
+  renamemob:
+  nickname:
+    aliases: [nick]
+  clearnick:
+  list:
+  day:
+  night:
+  sun:
+  rain:
+  thunder:
+  clearweather:
+  tp:
+    aliases: [teleport]
+  tphere:
+  tpto:
+    aliases: [tp2p]
+  tpall:
+  locateplayer:
+  spawn:
+  setspawn:
+  bowtiereload:
+  broadcast:
+    aliases: [bc]
+  sleep:
+  wtp:
+    aliases: [tpworld]
+  worlds:
+  setworldspawn:
+  share:
+  xp:
+    aliases: [exp, experience]
+  effect:
+  locate:
+  parsemm:
+    aliases: [ping]
+  sudo:
+  nickother:
+  clearnickother:
+  logininfo:
+  sethome:
+  delhome:
+  home:
+  homes:
+  tpoff:
+  info:
+  bowtiecommands:
+  biome:
+  down:
+  up:
+
+permissions:
+  bowtie.home:
+    default: true
+  bowtie.sudo:
+    default: op
+  bowtie.admin:
+    default: op
+  bowtie.player:
+    default: op
+  bowtie.items:
+    default: op
+  bowtie.world:
+    default: op
+  bowtie.teleport:
+    default: op
+  bowtie.locate:
+    default: op
+  bowtie.chat.minimessage:
+    default: op
+  bowtie.nickname:
+    default: true
+  bowtie.common:
+    default: true
+  bowtie.spawn:
+    default: true
+  bowtie.share:
+    default: true
