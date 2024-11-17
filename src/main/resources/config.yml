@@ -17,9 +17,13 @@ chat:
     # <suffix> - The player's suffix.
     # <message> - The message.
     # <displayname> - The player's display name.
+  replacements: # Force replace a with b in user's displayname.
+    - 'foxhuman716|God'
   # Default minecraft chat format:
   # <white><$PREFIX$NAME$SUFFIX> $MESSAGE
   format: '<white><prefix><displayname><suffix> <white>» <message>'
+  join: '<yellow><displayname> joined the game'
+  quit: '<yellow><displayname> left the game'
 
 afk:
   god-when-afk: true

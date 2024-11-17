@@ -57,6 +57,7 @@ commands:
   sleep:
   wtp:
     aliases: [tpworld]
+  tpinworld:
   worlds:
   setworldspawn:
   share:

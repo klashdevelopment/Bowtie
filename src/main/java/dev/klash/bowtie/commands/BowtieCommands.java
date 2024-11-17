@@ -455,7 +455,7 @@ public class BowtieCommands {
                 Bowtie.homesConfig.reload();
                 Bowtie.infoCmdConfig.reload();
                 Bowtie.tie().reloadConfig();
-                return "<green>Reloaded Bowtie configurations.";
+                return "<green>Reloaded Bowtie configurations with " + Bowtie.tie().getConfig().getStringList("chat.replacements").size() + " chat reps";
             }, true),
             createSimple(new String[]{"wtp", "tpworld"}, "bowtie.admin", (player, args) -> {
                 if(args.length < 1) return "<red>Usage: /wtp <world>";
