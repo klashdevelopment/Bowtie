@@ -1,0 +1,26 @@
+# BOWTIE DISCORD is a work in progress feature! Webhook customization isn't implemented.
+#
+# Bowtie chooses to use Javacord as a lightweight Discord API wrapper.
+# To make the bot work, you need to create a Discord bot and get the token.
+# You can do this by going to https://discord.com/developers/applications
+# and creating a new application. Then, create a bot and copy the token.
+#
+# Insert the token below and enable the discord feature.
+token: "your-token-here"
+enabled: false
+# The channel ID where the bot will send messages.
+channel-id: "your-channel-id-here"
+# The server ID where the bot will send messages.
+server-id: "your-server-id-here"
+# Messages that the bot will send.
+# Content can use either discord markdown or embed format.
+#
+# Embed format: "[EMBED]Title|Content|Color|ImageUrl"
+# Title and Content are required using Discord markdown. Color and Image are optional.
+#
+# Placeholders avalible are %username% %displayname% %image%
+messages:
+  player-join: "[EMBED]%username% joined the game|Welcome to the server.|#00ff00|%image%"
+  player-quit: "[EMBED]%username% left the game|See you next time|#ff0000|%image%"
+  # Chats use a webhook for each player with their display name and icon.
+  player-chat: "%message%"

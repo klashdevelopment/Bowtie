@@ -116,6 +116,20 @@ public class ChatListener implements Listener {
 
         return MiniMessage.miniMessage().deserialize(s, resolvers);
     }
+    public static @NotNull Component addPlaceholdersWithoutVault(String s, Component displayName, Component userName, TagResolver... res) {
+        TagResolver displayname, name;
+
+        Component userDName = fix(displayName);
+
+        displayname = Placeholder.component("displayname", userDName);
+        name = Placeholder.component("name", fix(userName));
+
+        TagResolver[] resolvers = {displayname, name};
+        resolvers = Arrays.copyOf(resolvers, resolvers.length + res.length);
+        System.arraycopy(res, 0, resolvers, resolvers.length - res.length, res.length);
+
+        return MiniMessage.miniMessage().deserialize(s, resolvers);
+    }
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {

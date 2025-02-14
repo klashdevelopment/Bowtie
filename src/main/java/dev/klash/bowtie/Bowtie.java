@@ -3,6 +3,8 @@ package dev.klash.bowtie;
 import dev.klash.bowtie.chat.AfkListener;
 import dev.klash.bowtie.chat.ChatListener;
 import dev.klash.bowtie.commands.BowtieCommands;
+import dev.klash.bowtie.feature.BowtiePlaceholder;
+import dev.klash.bowtie.feature.discord.DiscordCT;
 import dev.klash.bowtie.utility.JSONUtility;
 import dev.klash.caramel.Caramel;
 import dev.klash.caramel.CaramelConfig;
@@ -15,7 +17,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.jetbrains.annotations.NotNull;
 import org.json.simple.parser.ParseException;
 
 import java.io.File;
@@ -30,10 +31,18 @@ public final class Bowtie extends JavaPlugin {
     public static Chat vaultChat = null;
     public static Permission vaultPerms = null;
 
+    public static DiscordCT discordCT = null;
+
+    private BowtiePlaceholder placeholders = null;
+
     @Override
     public void onEnable() {
         saveDefaultConfig();
         tie = this;
+
+        if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+            (placeholders = new BowtiePlaceholder()).register();
+        }
 
         try {
             if(Bukkit.getPluginManager().getPlugin("Vault") != null) {
@@ -73,6 +82,13 @@ public final class Bowtie extends JavaPlugin {
         infoCmdConfig = new CaramelConfig(this, "info-commands.yml");
         infoCmdConfig.saveDefaultConfig();
 
+        discordConfig = new CaramelConfig(this, "discord.yml");
+        discordConfig.saveDefaultConfig();
+        if(discordConfig.getData().getBoolean("enabled")) {
+            discordCT = new DiscordCT(discordConfig);
+            discordCT.init();
+        }
+
         if(getConfig().getBoolean("items.use-essentials-item-names")) {
             getLogger().warning("Using experimental essentials item names, items with metadata will not be added.");
             try {
@@ -106,7 +122,6 @@ public final class Bowtie extends JavaPlugin {
             }
         }
 
-
         for(Class<? extends CaramelCommand> clazz : BowtieCommands.advancedCommands) {
             try {
                 CaramelCommand cmd = clazz.getConstructor().newInstance();
@@ -124,7 +139,7 @@ public final class Bowtie extends JavaPlugin {
 
     public static HashMap<String, Material> materialNames = new HashMap<>();
 
-    public static CaramelConfig spawnConfig, nicksConfig, homesConfig, infoCmdConfig;
+    public static CaramelConfig spawnConfig, nicksConfig, homesConfig, infoCmdConfig, discordConfig;
 
     public static Bowtie tie;
     public static Bowtie tie() {
@@ -136,6 +151,8 @@ public final class Bowtie extends JavaPlugin {
         for(CaramelCommand cmd : registeredCommands) {
             Caramel.getInstance().commands.getCommandList().remove(cmd);
         }
+        if(placeholders != null) placeholders.unregister();
+        if(discordCT != null) discordCT.shutdown();
     }
     
     @Override

@@ -21,17 +21,13 @@ public class PingCommand implements CaramelCommand {
         return new CaramelCommandDetail("parsemm", "bowtie.admin", Bowtie.tie(), "ping");
     }
 
-    void sendFormatted(Player p, String message) {
+    void sendFormatted(CommandSender p, String message) {
         p.sendMessage(CaramelUtility.colorcomp(message));
     }
 
     @Override
     public void onPlayer(Player player, List<String> list) {
-        if(list.isEmpty()) {
-            sendFormatted(player, "<red>Usage: /parsemm <message>");
-            return;
-        }
-        sendFormatted(player, String.join(" ", list));
+        onConsole(player, list);
     }
 
     @Override
@@ -55,7 +51,11 @@ public class PingCommand implements CaramelCommand {
     }
 
     @Override
-    public void onConsole(CommandSender commandSender, List<String> list) {
-
+    public void onConsole(CommandSender player, List<String> list) {
+        if(list.isEmpty()) {
+            sendFormatted(player, "<red>Usage: /parsemm <message>");
+            return;
+        }
+        sendFormatted(player, String.join(" ", list));
     }
 }

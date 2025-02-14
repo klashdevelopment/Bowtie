@@ -1,5 +1,8 @@
 package dev.klash.bowtie.utility;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -69,6 +72,10 @@ public class MiniMessageUtility {
 
         // If the tag is complete or absent, return an empty list
         return new ArrayList<>();
+    }
+
+    public static String plain(Component component) {
+        return PlainTextComponentSerializer.plainText().serialize(component);
     }
 
 }

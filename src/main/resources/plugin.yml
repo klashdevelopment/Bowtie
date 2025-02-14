@@ -5,10 +5,11 @@ api-version: '1.21'
 depend: [Caramel]
 softdepend:
   - Vault
+  - PlaceholderAPI
+  - TAB
 commands:
   item:
     aliases: [i, get]
-  # gmc, gms, gma, gmsp, fly, maxenchant, clear, oyasumi, gamemode, enchant, repair, god, speed, flyspeed, kill, heal, feed, time
   gmc:
   gms:
   gma:
@@ -81,6 +82,8 @@ commands:
   biome:
   down:
   up:
+  fakechat:
+    aliases: [fc]
 
 permissions:
   bowtie.home:
@@ -109,3 +112,5 @@ permissions:
     default: true
   bowtie.share:
     default: true
+  bowtie.troll:
+    default: op

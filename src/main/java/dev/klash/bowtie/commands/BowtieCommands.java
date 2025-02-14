@@ -18,7 +18,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import org.bukkit.*;
 import org.bukkit.block.Biome;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_21_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_21_R3.entity.CraftPlayer;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -44,7 +44,8 @@ public class BowtieCommands {
                     XPCommand.class,
                     EffectCommand.class,
                     LocateCommand.class,
-                    PingCommand.class
+                    PingCommand.class,
+                    FakeChatCommand.class
     ));
     public static List<CaramelCommand> commands = new ArrayList<>(Arrays.asList(
             createPlayerCompleted(new String[]{"gmc"}, "bowtie.player", (player, args) -> {
