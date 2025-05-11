@@ -51,7 +51,7 @@ public class FakeChatCommand implements CaramelCommand {
                 return;
             }
             fakePlayers.put(player, list.get(1));
-            Bukkit.broadcast(addPlaceholdersWithoutVault(Bowtie.tie().getConfig().getString("chat.join"), CaramelUtility.colorcomp(fakePlayers.get(player)), CaramelUtility.colorcomp(fakePlayers.get(player))));
+            Bukkit.broadcast(addPlaceholdersWithoutVault(Bowtie.tie().getConfig().getString("chat.join").replaceAll("<prefix>","").replaceAll("<suffix>",""), CaramelUtility.colorcomp(fakePlayers.get(player)), CaramelUtility.colorcomp(fakePlayers.get(player))));
             player.sendMessage(CaramelUtility.colorcomp("<green>Logged in as <aqua>" + list.get(1)));
         } else if(list.get(0).equalsIgnoreCase("say")) {
             if(list.size() < 2) {
@@ -67,8 +67,8 @@ public class FakeChatCommand implements CaramelCommand {
             TagResolver messageResolver = Placeholder.parsed("message", message);
             Bukkit.broadcast(addPlaceholdersWithoutVault(format, CaramelUtility.colorcomp(fakePlayers.get(player)), CaramelUtility.colorcomp(fakePlayers.get(player)), messageResolver));
         } else if(list.get(0).equalsIgnoreCase("logout")) {
-            fakePlayers.remove(player);
             Bukkit.broadcast(addPlaceholdersWithoutVault(Bowtie.tie().getConfig().getString("chat.quit"), CaramelUtility.colorcomp(fakePlayers.get(player)), CaramelUtility.colorcomp(fakePlayers.get(player))));
+            fakePlayers.remove(player);
             sendRed(player, "Logged out");
         } else if(list.get(0).equalsIgnoreCase("help")) {
             sendRed(player, "(/fc ...) /fakechat login <player>, /fakechat say <message>, /fakechat logout");

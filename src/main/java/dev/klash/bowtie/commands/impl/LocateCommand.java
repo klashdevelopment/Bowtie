@@ -41,16 +41,16 @@ public class LocateCommand implements CaramelCommand {
         // /locate <biome/poi/structure> <(minecraft:)name>
         BiFunction<String, List<String>, Boolean> usage = (thing, things) -> {
             boolean x = things.contains(thing);
-            if(!x) sendFormatted(player, "<red>Usage: /locate <biome/structure/raid> <(minecraft:)name>");
+            if(!x) sendFormatted(player, "<red>Usage: /locate <biome/structure/raid/poi> <(minecraft:)name>");
             return x;
         };
 
         if(list.isEmpty()) {
-            sendFormatted(player, "<red>No args. /locate <biome/structure/raid> <(minecraft:)name>");
+            sendFormatted(player, "<red>No args. /locate <biome/structure/raid/poi> <(minecraft:)name>");
             return;
         }
         String type = list.get(0);
-        if(!usage.apply(type, Arrays.asList("biome", "structure", "raid"))) return;
+        if(!usage.apply(type, Arrays.asList("biome", "structure", "raid", "poi"))) return;
         String name = list.size() < 2 ? "" : list.get(1);
 
         int x, y, z, d;
@@ -104,6 +104,9 @@ public class LocateCommand implements CaramelCommand {
                 x = loca.getBlockX(); y = loca.getBlockY(); z = loca.getBlockZ(); d = distance(loca, player.getLocation());
                 sendFormatted(player, "<green>Nearest raid is at <aqua><click:suggest_command:/tp @s "+x+" "+y+" "+z+">["+x+", "+y+", "+z+"]</click><green> ("+d+" blocks away)");
                 break;
+            case "poi":
+                sendFormatted(player, "<red>POI not implemented yet.");
+                break;
             default:
                 sendFormatted(player, "<red>Type not found: /locate <biome/structure/raid> <(minecraft:)name>");
                 break;
@@ -113,7 +116,7 @@ public class LocateCommand implements CaramelCommand {
     @Override
     public List<String> complete(String[] args) {
         if(args.length == 1) {
-            return CaramelUtility.tabComplete(args[0], Arrays.asList("biome", "structure", "raid"));
+            return CaramelUtility.tabComplete(args[0], Arrays.asList("biome", "structure", "raid", "poi"));
         } else if(args.length == 2) {
             List<String> options = new ArrayList<>();
             switch(args[0]) {
@@ -134,6 +137,6 @@ public class LocateCommand implements CaramelCommand {
 
     @Override
     public void onConsole(CommandSender commandSender, List<String> list) {
-
+        commandSender.sendMessage(CaramelUtility.colorcomp("<red>This command can only be run by a player."));
     }
 }

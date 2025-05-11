@@ -1,12 +1,12 @@
 # Bowtie Configuration
 items:
-
   # Whether to use the item names from EssentialsX or the Bowtie shortened names.
   # Item comparison:
   # Bowtie: acaciaboat, acacia_boat
   # EssentialsX: acaciaboat, acacia_boat, aboat, boata, araft, acraft, acboat
   #
   # You may come across issues when using this, such as Essentials potion names not being supported.
+  # Bowtie's own item name system is coming soon.
   use-essentials-item-names: true
 
 chat:
@@ -18,16 +18,18 @@ chat:
     # <message> - The message.
     # <displayname> - The player's display name.
   replacements: # Force replace a with b in user's displayname.
-    - 'foxhuman716|God'
+    - 'Technoblade:Legend'
   # Default minecraft chat format:
-  # <white><$PREFIX$NAME$SUFFIX> $MESSAGE
+  # <white><<prefix><name><suffix>> <message>
   format: '<white><prefix><displayname><suffix> <white>» <message>'
   join: '<yellow><displayname> joined the game'
   quit: '<yellow><displayname> left the game'
 
-afk:
-  god-when-afk: true
-
 homes:
   # Simply tells the player the home coordinates instead of teleporting them.
-  tell-dont-teleport: true
+  tell-dont-teleport: false
+
+graves:
+  enabled: false
+  # The amount of time before the grave is removed.
+  timeout: 3600 # 1 hour by default

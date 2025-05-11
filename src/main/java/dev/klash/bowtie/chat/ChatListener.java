@@ -20,6 +20,8 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.intellij.lang.annotations.RegExp;
 import org.jetbrains.annotations.NotNull;
 
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -133,16 +135,19 @@ public class ChatListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
+        if(Bowtie.discordCT != null) Bowtie.discordCT.onJoinPlayer(event);
         event.joinMessage(addPlaceholders(Bowtie.tie().getConfig().getString("chat.join"), event.getPlayer()));
     }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
+        if(Bowtie.discordCT != null) Bowtie.discordCT.onQuitPlayer(event);
         event.quitMessage(addPlaceholders(Bowtie.tie().getConfig().getString("chat.quit"), event.getPlayer()));
     }
 
     @EventHandler
-    public void onChat(AsyncChatEvent event) {
+    public void onChat(AsyncChatEvent event) throws MalformedURLException, URISyntaxException {
+        if(Bowtie.discordCT != null) Bowtie.discordCT.onChatMessage(event);
         event.renderer(new ChatRenderer() {
             @Override
             public @NotNull Component render(@NotNull Player player, @NotNull Component component, @NotNull Component component1, @NotNull Audience audience) {

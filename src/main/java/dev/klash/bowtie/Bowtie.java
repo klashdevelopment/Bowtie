@@ -84,10 +84,7 @@ public final class Bowtie extends JavaPlugin {
 
         discordConfig = new CaramelConfig(this, "discord.yml");
         discordConfig.saveDefaultConfig();
-        if(discordConfig.getData().getBoolean("enabled")) {
-            discordCT = new DiscordCT(discordConfig);
-            discordCT.init();
-        }
+        tryDiscord();
 
         if(getConfig().getBoolean("items.use-essentials-item-names")) {
             getLogger().warning("Using experimental essentials item names, items with metadata will not be added.");
@@ -144,6 +141,21 @@ public final class Bowtie extends JavaPlugin {
     public static Bowtie tie;
     public static Bowtie tie() {
         return tie!=null ? tie : (Bowtie)Bukkit.getServer().getPluginManager().getPlugin("Bowtie");
+    }
+
+    public static void tryDiscord() {
+        if(discordCT == null) {
+            if(discordConfig != null && discordConfig.getData().getBoolean("enabled")) {
+                discordCT = new DiscordCT(discordConfig);
+                discordCT.init();
+            }
+        }else {
+            if(discordConfig != null && discordConfig.getData().getBoolean("enabled")) {
+                discordCT.shutdown();
+                discordCT = new DiscordCT(discordConfig);
+                discordCT.init();
+            }
+        }
     }
 
     @Override

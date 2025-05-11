@@ -451,12 +451,22 @@ public class BowtieCommands {
                 return "<green>Set spawn to your location.";
             }),
             createSimple(new String[]{"bowtiereload"}, "bowtie.admin", (player, args) -> {
+                player.sendMessage(CaramelUtility.colorcomp("<green>Starting reload..."));
                 Bowtie.spawnConfig.reload();
+                player.sendMessage(CaramelUtility.colorcomp("<green>[spawn.yml] reloaded"));
                 Bowtie.nicksConfig.reload();
+                player.sendMessage(CaramelUtility.colorcomp("<green>[nicks.yml] reloaded"));
                 Bowtie.homesConfig.reload();
+                player.sendMessage(CaramelUtility.colorcomp("<green>[homes.yml] reloaded"));
+                Bowtie.discordConfig.reload();
+                player.sendMessage(CaramelUtility.colorcomp("<green>[discord.yml] reloaded"));
+                Bowtie.tryDiscord();
+                player.sendMessage(CaramelUtility.colorcomp("<green>[discord bot] restarted"));
                 Bowtie.infoCmdConfig.reload();
+                player.sendMessage(CaramelUtility.colorcomp("<green>[info-commands.yml] reloaded"));
                 Bowtie.tie().reloadConfig();
-                return "<green>Reloaded Bowtie configurations with " + Bowtie.tie().getConfig().getStringList("chat.replacements").size() + " chat reps";
+                player.sendMessage(CaramelUtility.colorcomp("<green>[bowtie.yml] reloaded"));
+                return "<green>Reloaded Bowtie configurations";
             }, true),
             createSimple(new String[]{"wtp", "tpworld"}, "bowtie.admin", (player, args) -> {
                 if(args.length < 1) return "<red>Usage: /wtp <world>";
@@ -652,27 +662,31 @@ public class BowtieCommands {
             }, true),
             createSimple(new String[]{"up"}, "bowtie.teleport", (player, args) -> {
                 Location loc = player.getLocation();
-                // Find closest 2 block gap above player
-                for(int i = loc.getBlockY(); i < 256; i++) {
-                    if(loc.getWorld().getBlockAt(loc.getBlockX(), i, loc.getBlockZ()).isPassable() && loc.getWorld().getBlockAt(loc.getBlockX(), i+1, loc.getBlockZ()).isPassable()) {
+                // Find closest 2 block gap above player.
+                // Make sure it passes thru a block, and not just air (why would you want to teleport one block up?)
+                for(int i = loc.getBlockY() + 1; i < 319; i++) {
+                    if(!loc.getWorld().getBlockAt(loc.getBlockX(), i - 1, loc.getBlockZ()).isPassable() &&
+                            loc.getWorld().getBlockAt(loc.getBlockX(), i, loc.getBlockZ()).isPassable() &&
+                            loc.getWorld().getBlockAt(loc.getBlockX(), i + 1, loc.getBlockZ()).isPassable()) {
                         loc.setY(i);
                         player.teleport(loc);
                         return "<green>Teleported up.";
                     }
                 }
-                return "<red>Unable to find a 2 block gap above you.";
+                return "<red>No space found.";
             }),
             createSimple(new String[]{"down"}, "bowtie.teleport", (player, args) -> {
                 Location loc = player.getLocation();
-                // Find closest 2 block gap below player
-                for(int i = loc.getBlockY(); i > 0; i--) {
-                    if(loc.getWorld().getBlockAt(loc.getBlockX(), i, loc.getBlockZ()).isPassable() && loc.getWorld().getBlockAt(loc.getBlockX(), i+1, loc.getBlockZ()).isPassable()) {
+                for(int i = loc.getBlockY() - 1; i > 0; i--) {
+                    if(!loc.getWorld().getBlockAt(loc.getBlockX(), i - 1, loc.getBlockZ()).isPassable() &&
+                            loc.getWorld().getBlockAt(loc.getBlockX(), i, loc.getBlockZ()).isPassable() &&
+                            loc.getWorld().getBlockAt(loc.getBlockX(), i - 1, loc.getBlockZ()).isPassable()) {
                         loc.setY(i);
                         player.teleport(loc);
                         return "<green>Teleported down.";
                     }
                 }
-                return "<red>Unable to find a 2 block gap below you.";
+                return "<red>No space found.";
             }),
             createSimple(new String[]{"biome"}, "bowtie.common", (player, args) -> "<green>You are standing in the biome: <aqua><lang:"+player.getLocation().getBlock().getBiome().translationKey()+">"),
             createSimple(new String[]{"afk"}, "bowtie.common", (player, args) -> {
