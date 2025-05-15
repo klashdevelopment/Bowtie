@@ -61,21 +61,23 @@ public class DiscordCT {
             }
         });
         api.addMessageCreateListener(event -> {
-            if (event.getMessageAuthor().isUser() && !event.getMessageAuthor().isWebhook() && !event.getMessageAuthor().isBotOwner()) {
-                String message = event.getMessageContent();
-                String playerName = event.getMessageAuthor().asUser().get().getName();
-                if(!message.trim().isEmpty()) {
-                    Bukkit.getScheduler().runTask(Bowtie.tie(), () -> {
-                        Bukkit.broadcast(CaramelUtility.colorcomp("<#5865F2>[Discord]<white> " + playerName + " » " + message));
-                    });
-                }
-                for(int i = 0; i < event.getMessageAttachments().size(); i++) {
-                    MessageAttachment att = event.getMessageAttachments().get(i);
-                    if(!att.isImage()) continue;
-                    int finalI = i;
-                    Bukkit.getScheduler().runTask(Bowtie.tie(), () -> {
-                        Bukkit.broadcast(CaramelUtility.colorcomp("<#5865F2>[Discord]<white> " + playerName + " » <aqua>("+(finalI +1)+"/"+(event.getMessageAttachments().size())+") <light_purple><hover:show_text:\"<aqua>Open cdn.discordapp.com link\"><click:open_url:\""+att.getUrl()+"\">View Image"));
-                    });
+            if(event.getChannel().getId() == Long.parseLong(this.channelID)){
+                if (event.getMessageAuthor().isUser() && !event.getMessageAuthor().isWebhook() && !event.getMessageAuthor().isBotOwner()) {
+                    String message = event.getMessageContent();
+                    String playerName = event.getMessageAuthor().asUser().get().getName();
+                    if(!message.trim().isEmpty()) {
+                        Bukkit.getScheduler().runTask(Bowtie.tie(), () -> {
+                            Bukkit.broadcast(CaramelUtility.colorcomp("<#5865F2>[Discord]<white> " + playerName + " » " + message));
+                        });
+                    }
+                    for(int i = 0; i < event.getMessageAttachments().size(); i++) {
+                        MessageAttachment att = event.getMessageAttachments().get(i);
+                        if(!att.isImage()) continue;
+                        int finalI = i;
+                        Bukkit.getScheduler().runTask(Bowtie.tie(), () -> {
+                            Bukkit.broadcast(CaramelUtility.colorcomp("<#5865F2>[Discord]<white> " + playerName + " » <aqua>("+(finalI +1)+"/"+(event.getMessageAttachments().size())+") <light_purple><hover:show_text:\"<aqua>Open cdn.discordapp.com link\"><click:open_url:\""+att.getUrl()+"\">View Image"));
+                        });
+                    }
                 }
             }
         });
