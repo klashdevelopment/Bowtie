@@ -92,7 +92,7 @@
     <dependency>
         <groupId>dev.klash</groupId>
         <artifactId>Caramel</artifactId>
-        <version>1.4.0</version>
+        <version>1.4.1</version>
         <scope>provided</scope>
     </dependency>
       <dependency>
